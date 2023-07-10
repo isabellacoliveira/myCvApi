@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using myCvApi.Data;
 
@@ -10,9 +11,11 @@ using myCvApi.Data;
 namespace myCvApi.Migrations
 {
     [DbContext(typeof(LinguagemContext))]
-    partial class LinguagemContextModelSnapshot : ModelSnapshot
+    [Migration("20230710142848_adicionando a formacao academica e atualizando o banco")]
+    partial class adicionandoaformacaoacademicaeatualizandoobanco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +30,10 @@ namespace myCvApi.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    b.Property<string>("GradeJson")
+                        .IsRequired()
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Imagem")
                         .IsRequired()

@@ -11,8 +11,6 @@ namespace myCvApi.Controllers
     [Route("[controller]")]
     public class ProjetosController : ControllerBase
     {
-         private static List<Projeto> linguagens = new List<Projeto>();
-    private static int Id = 0; 
     private LinguagemContext _context;
     private IMapper _mapper;
 

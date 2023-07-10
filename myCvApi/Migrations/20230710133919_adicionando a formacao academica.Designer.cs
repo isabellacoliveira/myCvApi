@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using myCvApi.Data;
 
@@ -10,9 +11,11 @@ using myCvApi.Data;
 namespace myCvApi.Migrations
 {
     [DbContext(typeof(LinguagemContext))]
-    partial class LinguagemContextModelSnapshot : ModelSnapshot
+    [Migration("20230710133919_adicionando a formacao academica")]
+    partial class adicionandoaformacaoacademica
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,6 +50,26 @@ namespace myCvApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Formacoes");
+                });
+
+            modelBuilder.Entity("myCvApi.Models.Grade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FormacaoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NomeDoConteudo")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FormacaoId");
+
+                    b.ToTable("Grade");
                 });
 
             modelBuilder.Entity("myCvApi.Models.Linguagem", b =>
@@ -113,6 +136,13 @@ namespace myCvApi.Migrations
                     b.ToTable("Projetos");
                 });
 
+            modelBuilder.Entity("myCvApi.Models.Grade", b =>
+                {
+                    b.HasOne("myCvApi.Models.Formacao", null)
+                        .WithMany("Grade")
+                        .HasForeignKey("FormacaoId");
+                });
+
             modelBuilder.Entity("myCvApi.Models.Projeto", b =>
                 {
                     b.HasOne("myCvApi.Models.Linguagem", "Linguagem")
@@ -122,6 +152,11 @@ namespace myCvApi.Migrations
                         .IsRequired();
 
                     b.Navigation("Linguagem");
+                });
+
+            modelBuilder.Entity("myCvApi.Models.Formacao", b =>
+                {
+                    b.Navigation("Grade");
                 });
 
             modelBuilder.Entity("myCvApi.Models.Linguagem", b =>

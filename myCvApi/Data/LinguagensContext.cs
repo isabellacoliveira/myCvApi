@@ -19,6 +19,7 @@ public class LinguagemContext : DbContext
         
     public DbSet<Linguagem> Linguagens { get; set; }
     public DbSet<Projeto> Projetos { get; set; }
+    public DbSet<Formacao> Formacoes { get; set; }
 
     internal class WebAppContext
     {
